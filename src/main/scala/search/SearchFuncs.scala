@@ -3,6 +3,12 @@ package search
 import sorting.Data
 
 object SearchFuncs {
+
+  /**
+   * Простой поиск
+   * @param arr - массив объектов типа Data
+   * @param key - ключ
+   */
   def simpleSearch(arr: Array[Data], key: String): Unit = {
     for (obj <- arr) {
       var searchArr: Array[Data] = Array.empty[Data]
@@ -12,22 +18,48 @@ object SearchFuncs {
     }
   }
 
-  def binarySearch(arr: Array[Data], key: String): Unit = {
-    var low = 0
-    var high = arr.length - 1
-    var searchArr: Array[Data] = Array.empty[Data]
+  /**
+   * Бинарный поиск
+   * @param arr - массив объектов типа Data
+   * @param key - ключ
+   * @param start
+   * @param end
+   * @return
+   */
+  def binarySearch(arr: Array[Data], key: String, start: Int, end: Int): Array[Int] = {
+    var res: Array[Int] = Array.empty[Int]
+    if (start > end) {
+      return Array.empty[Int]
+    }
+    val middle: Int = ((start + end) / 2).toInt
+    if (arr(middle).serviceName == key) {
+      res = res :+ middle
+    } else if (arr(middle).serviceName > key) {
+      res = binarySearch(arr, key, start, middle - 1)
+    } else if (arr(middle).serviceName < key) {
+      res = binarySearch(arr, key, middle + 1, end)
+    }
 
-    while (low <= high) {
-      val mid: Int = (low + high) / 2
-      val midVal = arr(mid)
-      if (midVal.serviceName == key) {
-        searchArr = searchArr :+ midVal
+    if (res.length == 0 || res.length > 1) {
+      return res
+    }
+
+    var left = res(0) - 1
+    var right = res(0) + 1
+
+    while (left >= 0 && (right < arr.length)) {
+      if (arr(left).serviceName == key) {
+        res(0) = left
+        left -= 1
       }
-      if (midVal.serviceName > key) {
-        high = mid - 1
+      if (arr(right).serviceName == key) {
+        res = res :+ right
+        right += 1
       } else {
-        low = mid + 1
+        return res
       }
     }
+
+    res
   }
 }

@@ -3,6 +3,14 @@ package utils
 import java.util.concurrent.TimeUnit
 
 object Timer {
+
+  /**
+   * Функция замера времени выполнения блоков программы
+   * @param typeSearch
+   * @param block
+   * @tparam R
+   * @return
+   */
   def time[R](typeSearch: String, block: => R): R = {
     val t0 = System.nanoTime()
     val result = block

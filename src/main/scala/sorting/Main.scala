@@ -16,7 +16,7 @@ import scala.io.BufferedSource
 object Main {
 
   /**
-   * Главный метод программы, содержит вызовы всех вспомогательных функций и замер времени выполнения сортировок
+   * Р“Р»Р°РІРЅС‹Р№ РјРµС‚РѕРґ РїСЂРѕРіСЂР°РјРјС‹, СЃРѕРґРµСЂР¶РёС‚ РІС‹Р·РѕРІС‹ РІСЃРµС… РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹С… С„СѓРЅРєС†РёР№ Рё Р·Р°РјРµСЂ РІСЂРµРјРµРЅРё РІС‹РїРѕР»РЅРµРЅРёСЏ СЃРѕСЂС‚РёСЂРѕРІРѕРє
    *
    * @param args
    * @return
@@ -59,23 +59,23 @@ object Main {
       }
       csvWriter.writeAll(shaker.toList.asJava)
 
-      println("----Несортированный массив, прямой поиск----")
+      println("----РќРµСЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ, РїСЂСЏРјРѕР№ РїРѕРёСЃРє----")
       for (_ <- 0 until 10) {
         val ranelem = "\"" + servicesListTMP(Random.between(0, servicesListTMP.length)) + "\""
         time("LINEAR", SearchFuncs.simpleSearch(data_arr, ranelem))
       }
-      println("----Сортированный массив, бинарный поиск----")
+      println("----РЎРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ, Р±РёРЅР°СЂРЅС‹Р№ РїРѕРёСЃРє----")
       for (_ <- 0 until 10) {
         val ranelem = "\"" + servicesListTMP(Random.between(0, servicesListTMP.length)) + "\""
-        time("BINARY", SearchFuncs.binarySearch(data_arr, ranelem))
+        time("BINARY", SearchFuncs.binarySearch(data_arr, ranelem, 0, data_arr.length))
       }
-      println("----Сортируем массив + бинарный поиск----")
+      println("----РЎРѕСЂС‚РёСЂСѓРµРј РјР°СЃСЃРёРІ + Р±РёРЅР°СЂРЅС‹Р№ РїРѕРёСЃРє----")
       for (_ <- 0 until 10) {
         val ranelem = "\"" + servicesListTMP(Random.between(0, servicesListTMP.length)) + "\""
         val shaker = time("SORTING", utils.sort.Sort.shaker_sort(data_arr))
-        time("BINARY", SearchFuncs.binarySearch(shaker, ranelem))
+        time("BINARY", SearchFuncs.binarySearch(shaker, ranelem, 0, data_arr.length))
       }
-      println("----Ищем по ключу в ассоциативном массиве----")
+      println("----РС‰РµРј РїРѕ РєР»СЋС‡Сѓ РІ Р°СЃСЃРѕС†РёР°С‚РёРІРЅРѕРј РјР°СЃСЃРёРІРµ----")
       for (_ <- 0 until 10) {
         val ranelem = "\"" + servicesListTMP(Random.between(0, servicesListTMP.length)) + "\""
         time("MAP", dataMap(ranelem))

@@ -13,4 +13,4 @@ libraryDependencies ++= Seq(
   "au.com.bytecode" % "opencsv" % "2.4"
 )
 
-scalacOptions ++= Seq("-unchecked", "-deprecation")
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "UTF-8")
